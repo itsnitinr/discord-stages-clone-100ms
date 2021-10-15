@@ -1,11 +1,17 @@
+import {
+  selectPeers,
+  useHMSStore,
+  selectLocalPeer,
+} from '@100mslive/hms-video-react';
+
 import RoomInfo from './Room/RoomInfo';
 import Controls from './Room/Controls';
 import ListenerTile from './User/ListenerTile';
 import SpeakerTile from './User/SpeakerTile';
 
 const Room = () => {
-  const peers = [];
-  const localPeer = { name: 'Test', roleName: 'listener' };
+  const peers = useHMSStore(selectPeers);
+  const localPeer = useHMSStore(selectLocalPeer);
 
   const speakersAndModerators = peers.filter(
     (peer) => peer.roleName !== 'listener'

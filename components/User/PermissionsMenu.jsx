@@ -1,12 +1,23 @@
 import { useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
+import {
+  useHMSStore,
+  useHMSActions,
+  selectLocalPeer,
+} from '@100mslive/hms-video-react';
 
 const PermissionsMenu = ({ audioTrack, id }) => {
-  const mutePeer = () => {};
+  const hmsActions = useHMSActions();
 
-  const changeRole = (role) => {};
+  const mutePeer = () => {
+    hmsActions.setRemoteTrackEnabled(audioTrack, false);
+  };
 
-  const localPeer = { name: 'Test', roleName: 'moderator' };
+  const changeRole = (role) => {
+    hmsActions.changeRole(id, role, true);
+  };
+
+  const localPeer = useHMSStore(selectLocalPeer);
 
   const [showMenu, setShowMenu] = useState(false);
 

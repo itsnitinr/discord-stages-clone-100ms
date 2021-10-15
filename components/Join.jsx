@@ -1,16 +1,36 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import Avatar from 'boring-avatars';
+import { useHMSActions } from '@100mslive/hms-video-react';
 
 import NameInput from './Join/NameInput';
 import RoleSelect from './Join/RoleSelect';
 import JoinButton from './Join/JoinButton';
 
 const Join = () => {
+  const hmsActions = useHMSActions();
+
   const [name, setName] = useState('');
   const [role, setRole] = useState('listener');
 
-  const joinRoom = async () => {};
+  const joinRoom = async () => {
+    try {
+      const response = await fetch('/api/token', {
+        method: 'POST',
+        body: JSON.stringify({ role }),
+      });
+      const { token } = await response.json();
+      hmsActions.join({
+        userName: name || 'Anonymous',
+        authToken: token,
+        settings: {
+          isAudioMuted: true,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
