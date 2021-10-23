@@ -1,8 +1,4 @@
-import {
-  selectPeers,
-  useHMSStore,
-  selectLocalPeer,
-} from '@100mslive/hms-video-react';
+import { selectPeers, useHMSStore } from '@100mslive/hms-video-react';
 
 import RoomInfo from './Room/RoomInfo';
 import Controls from './Room/Controls';
@@ -11,7 +7,6 @@ import SpeakerTile from './User/SpeakerTile';
 
 const Room = () => {
   const peers = useHMSStore(selectPeers);
-  const localPeer = useHMSStore(selectLocalPeer);
 
   const speakersAndModerators = peers.filter(
     (peer) => peer.roleName !== 'listener'
@@ -27,11 +22,7 @@ const Room = () => {
         </h5>
         <div className="flex space-x-6 flex-wrap">
           {speakersAndModerators.map((speaker) => (
-            <SpeakerTile
-              key={speaker.id}
-              peer={speaker}
-              isModerator={localPeer.roleName === 'moderator'}
-            />
+            <SpeakerTile key={speaker.id} peer={speaker} />
           ))}
         </div>
         <h5 className="uppercase text-sm text-gray-300 font-bold my-8">
@@ -39,11 +30,7 @@ const Room = () => {
         </h5>
         <div className="flex space-x-8 flex-wrap">
           {listeners.map((listener) => (
-            <ListenerTile
-              key={listener.id}
-              peer={listener}
-              isModerator={localPeer.roleName === 'moderator'}
-            />
+            <ListenerTile key={listener.id} peer={listener} />
           ))}
         </div>
       </div>

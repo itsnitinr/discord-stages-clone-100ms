@@ -8,15 +8,13 @@ import {
 
 import PermissionsMenu from './PermissionsMenu';
 
-const SpeakerTile = ({ peer, isModerator }) => {
+const SpeakerTile = ({ peer }) => {
   const isSpeaking = useHMSStore(selectPeerAudioByID(peer.id)) > 0;
   const isMicOn = useHMSStore(selectIsPeerAudioEnabled(peer.id));
 
   return (
     <div className="relative bg-secondary px-12 py-6 rounded-lg border border-purple-500">
-      {isModerator && (
-        <PermissionsMenu id={peer.id} audioTrack={peer.audioTrack} />
-      )}
+      <PermissionsMenu id={peer.id} audioTrack={peer.audioTrack} />
       <div className="flex flex-col gap-y-4 justify-center items-center">
         <div
           className={
