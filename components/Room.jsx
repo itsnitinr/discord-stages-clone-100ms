@@ -7,9 +7,11 @@ const Room = () => {
   const peers = [];
 
   const speakersAndModerators = peers.filter(
-    (peer) => peer.roleName !== 'listener'
+    (peer) => peer.roleName === 'speaker' || peer.roleName === 'moderator'
   );
-  const listeners = peers.filter((peer) => peer.roleName === 'listener');
+  const listenersAndHandraised = peers.filter(
+    (peer) => peer.roleName === 'listener' || peer.roleName === 'handraise'
+  );
 
   return (
     <div className="flex flex-col bg-main text-white min-h-screen p-6">
@@ -24,10 +26,10 @@ const Room = () => {
           ))}
         </div>
         <h5 className="uppercase text-sm text-gray-300 font-bold my-8">
-          Listeners - {listeners.length}
+          Listeners - {listenersAndHandraised.length}
         </h5>
         <div className="flex space-x-8 flex-wrap">
-          {listeners.map((listener) => (
+          {listenersAndHandraised.map((listener) => (
             <ListenerTile key={listener.id} peer={listener} />
           ))}
         </div>

@@ -1,14 +1,24 @@
 import MicButton from './MicButton';
 import ExitButton from './ExitButton';
+import HandRaiseButton from './HandRaiseButton';
 
 const Controls = () => {
   const isMicOn = false;
-  const role = 'listener';
+  const peer = { name: 'Test', roleName: 'listener' };
+
+  const isListenerOrHandraised =
+    peer.roleName === 'listener' || peer.roleName === 'handraise';
 
   return (
     <div className="flex justify-center space-x-4">
-      {role !== 'listener' && (
+      {!isListenerOrHandraised && (
         <MicButton isMicOn={isMicOn} toggleMic={() => {}} />
+      )}
+      {isListenerOrHandraised && (
+        <HandRaiseButton
+          isHandRaised={peer.roleName === 'handraise'}
+          toggleHandRaise={() => {}}
+        />
       )}
       <ExitButton exitRoom={() => {}} />
     </div>

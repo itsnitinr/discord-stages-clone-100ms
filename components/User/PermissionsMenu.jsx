@@ -16,7 +16,7 @@ const PermissionsMenu = ({ audioTrack, id }) => {
 
   if (isModerator) {
     return (
-      <div className="absolute right-2 top-2 z-50">
+      <div className="absolute right-1 top-1 z-50">
         <AiOutlineMenu
           className="ml-auto"
           onClick={() => setShowMenu(!showMenu)}
