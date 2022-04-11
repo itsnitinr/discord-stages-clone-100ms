@@ -19,14 +19,15 @@ const Join = () => {
         method: 'POST',
         body: JSON.stringify({ role }),
       });
-      const { token } = await response.json();
+      const { token, initEndPoint } = await response.json();
+      console.log(initEndPoint);
       hmsActions.join({
         userName: name || 'Anonymous',
         authToken: token,
         settings: {
           isAudioMuted: true,
         },
-        initEndpoint : process.env.REACT_APP_HMS_INIT_PEER_ENPOINT || undefined
+        initEndpoint: initEndPoint
       });
     } catch (error) {
       console.error(error);
