@@ -1,14 +1,16 @@
 import { v4 } from 'uuid';
+const endPoint = process.env.REACT_APP_TOKEN_ENDPOINT;
+const room_id = process.env.REACT_APP_ROOM_ID;
 
 export default async function getAuthToken(req, res) {
   try {
     const { role } = JSON.parse(req.body);
 
-    const response = await fetch(`${process.env.TOKEN_ENDPOINT}api/token`, {
+    const response = await fetch(`${endPoint}api/token`, {
       method: 'POST',
       body: JSON.stringify({
         user_id: v4(),
-        room_id: process.env.ROOM_ID,
+        room_id,
         role,
       }),
     });
